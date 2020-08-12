@@ -197,7 +197,7 @@ public class MainActivityGDT extends AppCompatActivity {
             //加载多条，必须实现回调
 //            natives.loadNativeAd(this, NATIVE_EXPRESS_POS_ID_VIDEO, 10, listener);
             //加载更多广告 记得调用 natives.destroy(); 在activiy stop/onDestory中
-            natives.loadNativeAdMore(this, NATIVE_EXPRESS_POS_ID_VIDEO, 55, new NativeLoadMoreListener<NativeExpressADView>() {
+            natives.loadNativeAdMore(this, NATIVE_EXPRESS_POS_ID_VIDEO, 11, new NativeLoadMoreListener<NativeExpressADView>() {
                 @DebugLog
                 @Override
                 public void onAdLoad(List<NativeExpressADView> list) {
