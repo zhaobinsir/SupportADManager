@@ -27,6 +27,7 @@ allprojects {
         maven {
             url 'https://dl.bintray.com/novoda-oss/snapshots/'
         }
+        maven { url 'https://dl.bintray.com/zhaobinsir/maven' } //添加
     }
 }
 

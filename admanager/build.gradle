@@ -65,10 +65,10 @@ tasks.withType(Javadoc) {
 publish {
     userOrg = 'zhaobinsir'           //bintray.com 注册的用户名
     groupId = 'com.zbb.admanager'   //以后访问 jcenter上此项目的路径，一般和库项目的包名一致
-    artifactId = 'ADManager'       //bintray.com 创建的 Package 名
-    publishVersion = '1.1'         //版本号
-    desc = '穿山甲网盟集合' //版本说明，随意
-    website = 'https://github.com/zhaobinsir/ADManager'    //关于这个开源项目的网站，随意
+    artifactId = 'SupportADManager'       //bintray.com 创建的 Package 名
+    publishVersion = '1.0'         //版本号
+    desc = '穿山甲网盟集合非androidx项目' //版本说明，随意
+    website = 'https://github.com/zhaobinsir/SupportADManager.git'    //关于这个开源项目的网站，随意
 }
 
 //执行命令
