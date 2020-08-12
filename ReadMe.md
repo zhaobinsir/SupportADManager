@@ -1,5 +1,5 @@
 
-注意此版本兼容非androidx版本
+注意此版本兼容非androidx版本,直接食用：implementation 'com.zbb.admanager:SupportADManager:1.0'
 
 或者导入module方式，二选一
 app中build.gradle 配置：repositories {
