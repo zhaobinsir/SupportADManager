@@ -1,13 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
         mavenCentral()
         maven {
             url 'https://dl.bintray.com/novoda-oss/snapshots/'
+        }
+        maven {
+            url 'https://dl.bintray.com/shenxingnet2020/maven'
         }
     }
     dependencies {
@@ -26,6 +29,9 @@ allprojects {
         jcenter()
         maven {
             url 'https://dl.bintray.com/novoda-oss/snapshots/'
+        }
+        maven {
+            url 'https://dl.bintray.com/shenxingnet2020/maven'
         }
     }
 }

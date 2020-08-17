@@ -26,13 +26,13 @@ public class ADConfig {
      * @param gdtId 广点通id
      * @param wmId 网盟id
      */
-    public static void initAD(@NonNull Context context, @NonNull String gdtId, @NonNull String wmId){
+    public static void initAD(@NonNull Context context, @NonNull String gdtId, @NonNull String wmId,boolean isDebug){
         GDTADManager.getInstance().initWith(context, gdtId);
         MultiProcessFlag.setMultiProcess(true);//广点通对多进程的支持
         TTAdSdk.init(context,
                 new TTAdConfig.Builder()
                         .appId(wmId)
-                        .useTextureView(true) //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView
+                        .useTextureView(isDebug) //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView
                         .appName(context.getString(R.string.app_name))
                         .titleBarTheme(TTAdConstant.TITLE_BAR_THEME_DARK)
                         .allowShowNotify(true) //是否允许sdk展示通知栏提示
@@ -42,6 +42,7 @@ public class ADConfig {
                         .supportMultiProcess(true) //是否支持多进程，true支持
                         //.httpStack(new MyOkStack3())//自定义网络库，demo中给出了okhttp3版本的样例，其余请自行开发或者咨询工作人员。
                         .build());
+        ILog.DEBUG=isDebug;
     }
 
     /**
@@ -70,8 +71,4 @@ public class ADConfig {
    /* public static void setGDTMultiProcess(boolean ismulti){
         MultiProcessFlag.setMultiProcess(ismulti);
     }*/
-
-   public static void openDebug(boolean open){
-       ILog.DEBUG=open;
-   }
 }

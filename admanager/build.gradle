@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         minSdkVersion 19
-        versionName "1.1"
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -63,8 +63,8 @@ tasks.withType(Javadoc) {
 
 //发布到 Bintray
 publish {
-    userOrg = 'zhaobinsir'           //bintray.com 注册的用户名
-    groupId = 'com.zbb.admanager'   //以后访问 jcenter上此项目的路径，一般和库项目的包名一致
+    userOrg = 'shenxingnet2020'           //bintray.com 注册的用户名
+    groupId = 'com.shenxing.admanager'   //以后访问 jcenter上此项目的路径，一般和库项目的包名一致
     artifactId = 'SupportADManager'       //bintray.com 创建的 Package 名
     publishVersion = '1.0'         //版本号
     desc = '穿山甲网盟集合非androidx项目' //版本说明，随意
@@ -73,7 +73,7 @@ publish {
 
 //执行命令
 //./gradlew clean build generatePomFileForReleasePublication bintrayUpload -PbintrayUser=zhaobinsir -PbintrayKey=baecd0367d47a5b28873ca1b206a8d3b6a11d5d9 -PdryRun=false
-//gradlew clean build bintrayUpload -PbintrayUser=zhaobinsir -PbintrayKey=baecd0367d47a5b28873ca1b206a8d3b6a11d5d9 -PdryRun=false
+//gradlew clean build bintrayUpload -PbintrayUser=shenxingnet2020 -PbintrayKey=40ad9a839ffc7331be3cdfb4f9fb5901f187a04b -PdryRun=false
 
 
 repositories {

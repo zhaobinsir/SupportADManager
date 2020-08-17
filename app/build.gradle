@@ -1,19 +1,13 @@
-apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.hugo'
-
+apply plugin: 'com.android.library'
+apply plugin: 'com.kezong.fat-aar'
+apply plugin: 'com.novoda.bintray-release'//添加
 android {
     compileSdkVersion 28
-
     defaultConfig {
-        applicationId "com.qq.e.union.demo"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion 19
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        flavorDimensions "versionCode"
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -23,38 +17,85 @@ android {
         }
     }
 
-    productFlavors{
-        brancha{//广点通测试
-            applicationId "com.qq.e.union.demo"
-            versionCode 1
-            versionName "1.0"
-        }
-        branchb{//网盟测试
-            applicationId "com.union_test.toutiao"
-            versionCode 1
-            versionName "1.0"
-        }
-    }
-    productFlavors.all { variant ->
-//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    lintOptions {
+        abortOnError false
     }
 }
+
+//生成源文件
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//生成Javadoc文档
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//文档打包成jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//拷贝javadoc文件
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+
+
+//上传到JCenter所需要的源码文件
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+//解决 JavaDoc 中文注释生成失败的问题
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+
+//发布到 Bintray
+publish {
+    userOrg = 'zhaobinsir'           //bintray.com 注册的用户名
+    groupId = 'com.zbb.admanager'   //以后访问 jcenter上此项目的路径，一般和库项目的包名一致
+    artifactId = 'SupportADManager'       //bintray.com 创建的 Package 名
+    publishVersion = '1.0'         //版本号
+    desc = '穿山甲网盟集合非androidx项目' //版本说明，随意
+    website = 'https://github.com/zhaobinsir/SupportADManager.git'    //关于这个开源项目的网站，随意
+}
+
+//执行命令
+//./gradlew clean build generatePomFileForReleasePublication bintrayUpload -PbintrayUser=zhaobinsir -PbintrayKey=baecd0367d47a5b28873ca1b206a8d3b6a11d5d9 -PdryRun=false
+//gradlew clean build bintrayUpload -PbintrayUser=zhaobinsir -PbintrayKey=baecd0367d47a5b28873ca1b206a8d3b6a11d5d9 -PdryRun=false
+
 
 repositories {
     flatDir {
-        dirs 'libs', '../admanager/libs'
-//        dirs 'libs'
+        dirs 'libs'
     }
 }
-
+//允许远程依赖
+configurations.embed.transitive = true
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly 'com.android.support:appcompat-v7:28.0.0'
+    //24 穿山甲需要配置
+    compileOnly 'com.android.support:support-v4:24.2.0'
 
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-//    implementation project(path: ':admanager')
-    implementation 'com.zbb.admanager:SupportADManager:1.0'
-//    api (name: 'admanager-release', ext: 'aar')
+    /* api (name: 'GDTSDK.unionNormal.4.232.1102', ext: 'aar')
+     api (name: 'open_ad_sdk', ext: 'aar')*/
 
+    // local full aar dependency, just build in flavor1
+//    flavor1Embed project(path: ':GDTSDK.unionNormal.4.232.1102', configuration:'default')
+    // local full aar dependency, just build in debug
+    embed (name: 'GDTSDK.unionNormal.4.232.1102', ext: 'aar')
+    embed (name: 'open_ad_sdk', ext: 'aar')
 }
