@@ -90,7 +90,7 @@ dependencies {
     //24 穿山甲需要配置
     compileOnly 'com.android.support:support-v4:24.2.0'
 
-    /* api (name: 'GDTSDK.unionNormal.4.232.1102', ext: 'aar')
+   /*  api (name: 'GDTSDK.unionNormal.4.232.1102', ext: 'aar')
      api (name: 'open_ad_sdk', ext: 'aar')*/
 
     // local full aar dependency, just build in flavor1
